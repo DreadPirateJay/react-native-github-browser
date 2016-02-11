@@ -1,4 +1,5 @@
 import React, {
+    Component,
     Image,
     StyleSheet,
     Text,
@@ -7,27 +8,34 @@ import React, {
     View,
 } from 'react-native';
 
-export default class Login extends React.Component {
+export default class Login extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 <Image
                     style={styles.logo}
-                    source={require('./img/Octocat.png')}
+                    source={require('./../img/Octocat.png')}
                 />
                 <Text style={styles.heading}>
                     Github Browser
                 </Text>
 
                 <TextInput
+                    onChangeText={(text) => this.setState({ username: text })}
                     style={styles.input}
-                    placeholder="Github username..." />
+                    placeholder="username..." />
                 <TextInput
+                    onChangeText={(text) => this.setState({ password: text })}
                     style={styles.input}
-                    placeholder="Github password..."
+                    placeholder="password..."
                     secureTextEntry={true} />
 
                 <TouchableHighlight
+                    onPress={this.onLoginPressed.bind(this)}
                     style={styles.button}>
                     <Text style={styles.buttonText}>
                         Log In
@@ -35,6 +43,10 @@ export default class Login extends React.Component {
                 </TouchableHighlight>
             </View>
         );
+    }
+
+    onLoginPressed() {
+        console.log('Attempting to log in with username: ' + this.state.username);
     }
 }
 
